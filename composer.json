@@ -1,0 +1,13 @@
+{
+    "name": "mota-fernando/telegram-scratch-game-webapps",
+    "description": "A simple scratch game using Telegram's web app ",
+    "require": {
+        "telegram-bot/api": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\":"src/",
+            "App\\Bot\\":"src/Bot/"
+        }
+    }
+}
