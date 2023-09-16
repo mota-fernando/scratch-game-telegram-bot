@@ -1,33 +1,32 @@
 <?php
 
-namespace App\Bot;
+class TeleBot
+{
+    public function handleUpdate($update)
+    {
+        if (isset($update['message']['text'])) {
+            $message = $update['message']['text'];
+            $chatId = $update['message']['chat']['id'];
 
-use TelegramBot\Api;
-
-class TeleBot {
-
-    private $telegram;
-    private $message;
-    private $text;
-    private $chatId;
-
-    public function __construct($botToken){
-        $this->telegram = new Api($botToken);
-    }
-
-    public function handleUserInput($update){
-        $this->message = $update['message'];
-        $this->text = $message['text'];
-        $this->chatId = $message['chat']['id'];
-
-    }
-
-    private function sendMessage(){        
-        if ($this->text === '/start') {
-            $this->telegram->sendMessage([
-                'chat_id' => $this->chatId,
-                'text' => 'Bem-vindo ao bot do Telegram!',
-            ]);
+            switch ($message) {
+                case '/start':
+                    $this->sendWelcomeMessage($chatId);
+                    break;
+                case 'COMPAR RASPADINHA':
+                    $this->sendComparRaspadinhaMessage($chatId);
+                    break;
+                case 'PRÊMIOS E VALORES':
+                    $this->sendPremiosValoresMessage($chatId);
+                    break;
+                case 'COMO RESGATAR O PRÊMIO':
+                    $this->sendComoResgatarMessage($chatId);
+                    break;
+                default:
+                    $this->sendDefaultMessage($chatId);
+                    break;
+            }
         }
     }
+
+   
 }
